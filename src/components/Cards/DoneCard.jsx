@@ -1,13 +1,31 @@
 import { FaRegFaceFrownOpen } from "react-icons/fa6";
 import { RiCheckboxCircleFill } from "react-icons/ri";
-import { mockTasks } from "../../data/mockData";
 import EditTaskButton from "../Buttons/EditTaskButton";
 import DeleteTaskButton from "../Buttons/DeleteTaskButton";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { getTask } from "../../api";
+import { useEffect, useState } from "react";
 
 const DoneCard = () => {
 
-    const doneTasks = mockTasks.filter(task => task.status === "done");
+    const [loading, setLoading] = useState(true);
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const fetchTasks = async() => {
+            try{
+                const res = await getTask();
+                setTasks(res.data ?? res);
+            } catch(error) {
+                console.error("Failed to fetch tasks:",error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchTasks();
+    },[])
+
+    const doneTasks = tasks.filter(task => task.status === "done");
 
     return (
         <div className="flex flex-col h-full">
@@ -26,11 +44,11 @@ const DoneCard = () => {
                 <div className="space-y-3">
                     {doneTasks.length > 0 ? (
                         doneTasks.map(task =>(
-                            <div draggable="true" className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-move group">
+                            <div key={task.id} draggable="true" className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-move group">
                             <div className="flex items-start justify-between gap-2 mb-2">
                                 <h3 className="font-semibold text-slate-800 text-sm flex-1 line-clamp-2">{task.title}</h3>
                                 <div className="flex items-center gap-1">
-                                    <EditTaskButton />
+                                    <EditTaskButton task={task} />
                                     <DeleteTaskButton />
                                 </div>
                             </div>
