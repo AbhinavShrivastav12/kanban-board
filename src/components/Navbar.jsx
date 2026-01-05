@@ -1,4 +1,4 @@
-import AddtaskButton from "./AddtaskButton";
+import AddtaskButton from "./Buttons/AddtaskButton";
 
 const Navbar = () => {
     return (
