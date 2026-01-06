@@ -3,7 +3,8 @@ import EditTaskButton from "../Buttons/EditTaskButton";
 import DeleteTaskButton from "../Buttons/DeleteTaskButton";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { getTask } from "../../api";
+import { deleteTask, getTask } from "../../api";
+import { formatDateTime } from "../../utils/formatDate";
 
 const TodoCard = () => {
   const [loading, setLoading] = useState(true);
@@ -24,9 +25,14 @@ const TodoCard = () => {
   }, []);
   const todoTask = tasks.filter((task) => task.status === "todo");
 
-  const handleDragStart = (e, task) => {
-    e.dataTransfer.setData("task", JSON.stringify(task));
-    e.dataTransfer.effectAllowed = "move";
+  const handleDeleteTask = async (id) => {
+    try {
+      await deleteTask(id);
+      const updatedTasks = tasks.filter((task) => task.id !== id);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("Failed to delete task:", error);
+    }
   };
 
   return (
@@ -57,7 +63,7 @@ const TodoCard = () => {
                 </h3>
                 <div className="flex items-center gap-1">
                   <EditTaskButton task={task} />
-                  <DeleteTaskButton />
+                  <DeleteTaskButton task={task} onDelete={handleDeleteTask}/>
                 </div>
               </div>
               <p className="text-slate-600 text-sm line-clamp-3 mb-3">
@@ -67,7 +73,7 @@ const TodoCard = () => {
                 <i>
                   <FaRegCalendarAlt />
                 </i>
-                <span>{task.createdAt}</span>
+                <span>{formatDateTime(task.createdAt)}</span>
               </div>
             </div>
           ))}
