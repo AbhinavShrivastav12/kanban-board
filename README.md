@@ -1,16 +1,70 @@
-# React + Vite
+# Kanban Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive **Kanban-style task management app** built with **React** and **Tailwind CSS**, featuring:
 
-Currently, two official plugins are available:
+- **Drag-and-drop** tasks between columns
+- **Editable tasks** with title, description, and status
+- **Status dropdown** with dynamic background color
+- **Real-time updates** using API calls
+- Responsive design (mobile-first)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
+- You can Add Task
+- You can drag and drop the task
+- You can even change the status of the task by the dropdown
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Columns
 
-## Expanding the ESLint configuration
+- **To Do**
+- **In Progress**
+- **Done**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Each column displays tasks filtered by their status.
+
+### Task Management
+
+- **Add tasks** via Navbar
+- **Edit tasks** (title, description)
+- **Delete tasks**
+- **Change status** via a dropdown with dynamic colors
+- **Drag and drop** tasks between columns
+
+### Responsive Layout
+
+- On **small screens**: date and status stack vertically
+- On **medium+ screens**: date and status are side by side
+
+---
+
+## Tech Stack
+
+- **React.js** – Frontend library
+- **Tailwind CSS** – Styling
+- **React Icons** – Icons
+- **Axios / API** – Task CRUD operations
+- **Optional Backend** – Any REST API (example: Node.js / Express)
+
+---
+
+## Folder Structure
+src/
+├─ api/ # API functions for tasks
+├─ components/
+│ ├─ Buttons/ # Edit, Delete task buttons
+│ ├─ Cards/ # TodoCard, InProgressCard, DoneCard
+│ ├─ DropDown/ # StatusDropDown
+│ ├─ Skeleton/ # Loading skeletons
+│ ├─ Navbar.jsx
+│ ├─ Footer.jsx
+├─ utils/
+│ └─ formatDate.js
+├─ App.jsx
+└─ index.jsx
+
+
+---
+<img width="1913" height="866" alt="image" src="https://github.com/user-attachments/assets/726655a9-483b-4a80-aacd-6b08a9b66779" />
+
+
