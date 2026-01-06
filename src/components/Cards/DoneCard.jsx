@@ -6,6 +6,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { formatDateTime } from "../../utils/formatDate";
 import CardModelSkeleton from "../Skeleton/CardModelSkeleton";
 import { CountSkeleton } from "../Skeleton/CountSkeleton";
+import StatusDropDown from "../DropDown/StatusDropDown";
 
 const DoneCard = ({
   tasks,
@@ -13,7 +14,8 @@ const DoneCard = ({
   onDrop,
   onDelete,
   onDragOver,
-  isLoading
+  isLoading,
+  onTaskUpdated
 }) => {
 
   return (
@@ -63,10 +65,16 @@ const DoneCard = ({
                   {task.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs text-slate-500">
+               <div className="flex justify-between items-center">
+                 <div className="flex items-center gap-2 text-xs text-slate-500">
                   <FaRegCalendarAlt />
                   <span>{formatDateTime(task.createdAt)}</span>
                 </div>
+               <div>
+                 <StatusDropDown task={task} onStatusUpdate={onTaskUpdated}/>
+               
+               </div>
+               </div>
               </div>
             ))
           ) : (

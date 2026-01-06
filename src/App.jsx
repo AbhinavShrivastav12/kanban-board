@@ -84,10 +84,11 @@ const handleDrop = async (e, status) => {
             <TodoCard
               isLoading={isLoading}
               tasks={tasks.filter((t) => t.status === "todo")}
-              onDragStart={handleDragStart}
+              onDragStart={handleDragStart} 
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, "todo")}
               onDelete={handleDeleteTask}
+              onTaskUpdated={handleTaskUpdate}
             />
             <InProgressCard
               isLoading={isLoading}
@@ -96,6 +97,7 @@ const handleDrop = async (e, status) => {
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, "inprogress")}
               onDelete={handleDeleteTask}
+              onTaskUpdated={handleTaskUpdate}
             />
             <DoneCard
               isLoading={isLoading}
@@ -104,6 +106,7 @@ const handleDrop = async (e, status) => {
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, "done")}
               onDelete={handleDeleteTask}
+              onTaskUpdated={handleTaskUpdate}
             />
           </div>
         </div>

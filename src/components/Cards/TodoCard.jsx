@@ -5,10 +5,23 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { formatDateTime } from "../../utils/formatDate";
 import CardModelSkeleton from "../Skeleton/CardModelSkeleton";
 import { CountSkeleton } from "../Skeleton/CountSkeleton";
+import { FaRegFaceFrownOpen } from "react-icons/fa6";
+import StatusDropDown from "../DropDown/StatusDropDown";
 
-const TodoCard = ({ tasks, onDragStart, onDrop, onDragOver, onDelete, isLoading }) => {
+const TodoCard = ({
+  tasks,
+  onDragStart,
+  onDrop,
+  onDragOver,
+  onDelete,
+  isLoading,
+  onTaskUpdated,
+}) => {
   return (
-    <div className="flex flex-col h-full" onDragOver={onDragOver} onDrop={onDrop}>
+    <div
+      className="flex flex-col h-full"
+      onDragOver={onDragOver}
+      onDrop={onDrop}>
       {/* Header */}
       <div className="bg-gradient-to-r from-slate-500 to-slate-600 text-white px-4 py-3 rounded-t-xl shadow-md">
         <div className="flex items-center justify-between">
@@ -17,7 +30,11 @@ const TodoCard = ({ tasks, onDragStart, onDrop, onDragOver, onDelete, isLoading 
             <h2 className="font-semibold text-base">To Do</h2>
           </div>
           <span className="bg-white/20 px-2.5 py-0.5 rounded-full text-sm font-medium">
-            {isLoading? ( <CountSkeleton className="text-white" />) : tasks.length}
+            {isLoading ? (
+              <CountSkeleton className="text-white" />
+            ) : (
+              tasks.length
+            )}
           </span>
         </div>
       </div>
@@ -33,28 +50,31 @@ const TodoCard = ({ tasks, onDragStart, onDrop, onDragOver, onDelete, isLoading 
                 key={task.id}
                 draggable
                 onDragStart={(e) => onDragStart(e, task.id)}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-move group"
-              >
+                className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-move group">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="font-semibold text-slate-800 text-sm flex-1 line-clamp-2">
                     {task.title}
                   </h3>
                   <div className="flex items-center gap-1">
-                    <EditTaskButton task={task} />
+                    <EditTaskButton task={task} onTaskUpdated={onTaskUpdated} />
                     <DeleteTaskButton task={task} onDelete={onDelete} />
                   </div>
                 </div>
                 <p className="text-slate-600 text-sm line-clamp-3 mb-3">
                   {task.description}
                 </p>
-                <div className="flex items-center gap-2 text-xs text-slate-500">
-                  <FaRegCalendarAlt />
-                  <span>{formatDateTime(task.createdAt)}</span>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <FaRegCalendarAlt />
+                    <span>{formatDateTime(task.createdAt)}</span>
+                  </div>
+                  <StatusDropDown task={task} onStatusUpdate= {(updatedTask) => onTaskUpdated(updatedTask)}/>
                 </div>
               </div>
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center py-12 text-slate-400">
+            <div className="flex flex-col items-center justify-center py-12 text-slate-400 ">
+              <FaRegFaceFrownOpen className="size-10" />
               <p className="text-sm">No Task</p>
             </div>
           )}
