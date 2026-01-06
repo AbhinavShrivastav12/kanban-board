@@ -15,7 +15,7 @@ export default function PopUpModel({ onClose, onTaskAdded }) {
       const newTask = { title, description, status: "todo" };
       const res = await addTask(newTask);
 
-      if (onTaskAdded) onTaskAdded(res.data); // notify parent
+      if (onTaskAdded) onTaskAdded(res.data ?? res); // notify parent
       setTitle("");
       setDescription("");
       onClose();
