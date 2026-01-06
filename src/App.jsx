@@ -8,6 +8,7 @@ import { getTask , updateTask , deleteTask } from "./api";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -16,7 +17,9 @@ export default function App() {
       setTasks(res.data ?? res);
      } catch(err){
         console.error("Failed to fetch tasks:", err);
-     }
+     } finally {
+      setIsLoading(false);
+    }
     };
     fetchTasks();
   }, []);
@@ -79,6 +82,7 @@ const handleDrop = async (e, status) => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <TodoCard
+              isLoading={isLoading}
               tasks={tasks.filter((t) => t.status === "todo")}
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
@@ -86,6 +90,7 @@ const handleDrop = async (e, status) => {
               onDelete={handleDeleteTask}
             />
             <InProgressCard
+              isLoading={isLoading}
               tasks={tasks.filter((t) => t.status === "inprogress")}
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
@@ -93,6 +98,7 @@ const handleDrop = async (e, status) => {
               onDelete={handleDeleteTask}
             />
             <DoneCard
+              isLoading={isLoading}
               tasks={tasks.filter((t) => t.status === "done")}
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}

@@ -4,13 +4,16 @@ import EditTaskButton from "../Buttons/EditTaskButton";
 import DeleteTaskButton from "../Buttons/DeleteTaskButton";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { formatDateTime } from "../../utils/formatDate";
+import CardModelSkeleton from "../Skeleton/CardModelSkeleton";
+import { CountSkeleton } from "../Skeleton/CountSkeleton";
 
 const DoneCard = ({
   tasks,
   onDragStart,
   onDrop,
   onDelete,
-  onDragOver
+  onDragOver,
+  isLoading
 }) => {
 
   return (
@@ -27,7 +30,7 @@ const DoneCard = ({
             <h2 className="font-semibold text-base">Done</h2>
           </div>
           <span className="bg-white/20 px-2.5 py-0.5 rounded-full text-sm font-medium">
-            {tasks.length}
+            {isLoading? ( <CountSkeleton className="text-green-800" />) : tasks.length}
           </span>
         </div>
       </div>
@@ -36,7 +39,9 @@ const DoneCard = ({
       <div className="flex-1 bg-white rounded-b-xl shadow-md p-4 min-h-[500px]">
         <div className="space-y-3">
 
-          {tasks.length > 0 ? (
+          {isLoading ? (
+            <CardModelSkeleton count={4} />
+          ) : tasks.length > 0 ? (
             tasks.map(task => (
               <div
                 key={task.id}
