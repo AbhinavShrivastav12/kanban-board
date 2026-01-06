@@ -1,11 +1,10 @@
-export default function CardModelSkeleton({count=4}) {
-    return (
+export default function CardModelSkeleton({ count = 4 }) {
+  return (
     <>
-     {Array.from({ length: count }).map((_, idx) => (
+      {Array.from({ length: count }).map((_, idx) => (
         <div
           key={idx}
-          className="bg-slate-100 border border-slate-200 rounded-lg p-4 animate-pulse"
-        >
+          className="bg-slate-100 border border-slate-200 rounded-lg p-4 animate-pulse">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="h-4 bg-slate-300 rounded w-3/4"></div>
             <div className="flex gap-1">
@@ -23,5 +22,5 @@ export default function CardModelSkeleton({count=4}) {
         </div>
       ))}
     </>
-    );
+  );
 }

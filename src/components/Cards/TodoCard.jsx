@@ -68,7 +68,10 @@ const TodoCard = ({
                     <FaRegCalendarAlt />
                     <span>{formatDateTime(task.createdAt)}</span>
                   </div>
-                  <StatusDropDown task={task} onStatusUpdate= {(updatedTask) => onTaskUpdated(updatedTask)}/>
+                  <StatusDropDown
+                    task={task}
+                    onStatusUpdate={(updatedTask) => onTaskUpdated(updatedTask)}
+                  />
                 </div>
               </div>
             ))
