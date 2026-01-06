@@ -31,8 +31,7 @@ export default function StatusDropDown({ task, onStatusUpdate }) {
     <div className="relative inline-block">
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${statusColors[currentStatus]}`}
-      >
+        className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${statusColors[currentStatus]}`}>
         <span className="capitalize">{currentStatus}</span>
         <FaChevronDown size={15} className="pt-1" />
       </button>
@@ -43,8 +42,7 @@ export default function StatusDropDown({ task, onStatusUpdate }) {
             <div
               key={status}
               onClick={() => handleSelect(status)}
-              className={`px-4 py-2 cursor-pointer hover:bg-slate-100 hover:text-slate-800 flex items-center gap-1 ${statusColors[status]}`}
-            >
+              className={`px-4 py-2 cursor-pointer hover:bg-slate-100 hover:text-slate-800 flex items-center gap-1 ${statusColors[status]}`}>
               <span className="capitalize">{status}</span>
             </div>
           ))}

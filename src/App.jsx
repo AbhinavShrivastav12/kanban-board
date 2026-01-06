@@ -4,7 +4,7 @@ import InProgressCard from "./components/Cards/InProgressCard";
 import DoneCard from "./components/Cards/DoneCard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { getTask , updateTask , deleteTask } from "./api";
+import { getTask, updateTask, deleteTask } from "./api";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -12,14 +12,14 @@ export default function App() {
 
   useEffect(() => {
     const fetchTasks = async () => {
-     try{
+      try {
         const res = await getTask();
-      setTasks(res.data ?? res);
-     } catch(err){
+        setTasks(res.data ?? res);
+      } catch (err) {
         console.error("Failed to fetch tasks:", err);
-     } finally {
-      setIsLoading(false);
-    }
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchTasks();
   }, []);
@@ -35,14 +35,13 @@ export default function App() {
   };
 
   const handleAddTask = (newTask) => {
-  setTasks(prev => [...prev, newTask]); 
-};
-const handleTaskUpdate = (updatedTask) => {
-  setTasks(prev =>
-    prev.map(t => (t.id === updatedTask.id ? updatedTask : t))
-  );
-};
-
+    setTasks((prev) => [...prev, newTask]);
+  };
+  const handleTaskUpdate = (updatedTask) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
+  };
 
   // Drag start
   const handleDragStart = (e, taskId) => {
@@ -53,26 +52,25 @@ const handleTaskUpdate = (updatedTask) => {
   const handleDragOver = (e) => e.preventDefault();
 
   // Drop task
-const handleDrop = async (e, status) => {
-  e.preventDefault();
-  const taskId = e.dataTransfer.getData("taskId");
-  const task = tasks.find(t => t.id === taskId);
+  const handleDrop = async (e, status) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("taskId");
+    const task = tasks.find((t) => t.id === taskId);
 
-  if (!task || task.status === status) return;
+    if (!task || task.status === status) return;
 
-  try {
-    // Update backend
-    await updateTask(taskId, { ...task, status });
+    try {
+      // Update backend
+      await updateTask(taskId, { ...task, status });
 
-    // Update UI immediately
-    setTasks(prev =>
-      prev.map(t => (t.id === taskId ? { ...t, status } : t))
-    );
-  } catch (error) {
-    console.error("Failed to update task status:", error);
-  }
-};
-
+      // Update UI immediately
+      setTasks((prev) =>
+        prev.map((t) => (t.id === taskId ? { ...t, status } : t))
+      );
+    } catch (error) {
+      console.error("Failed to update task status:", error);
+    }
+  };
 
   return (
     <div>
@@ -84,7 +82,7 @@ const handleDrop = async (e, status) => {
             <TodoCard
               isLoading={isLoading}
               tasks={tasks.filter((t) => t.status === "todo")}
-              onDragStart={handleDragStart} 
+              onDragStart={handleDragStart}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, "todo")}
               onDelete={handleDeleteTask}

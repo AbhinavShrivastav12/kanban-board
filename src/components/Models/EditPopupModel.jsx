@@ -3,11 +3,10 @@ import { RxCross2 } from "react-icons/rx";
 import { updateTask } from "../../api";
 
 const statusColors = {
-  "inprogress": "bg-amber-500 text-white",
-  "done": "bg-green-500 text-white",
-  "todo": "bg-slate-500 text-white",
+  inprogress: "bg-amber-500 text-white",
+  done: "bg-green-500 text-white",
+  todo: "bg-slate-500 text-white",
 };
-
 
 export default function EditPopupModel({ task, onClose, onTaskUpdated }) {
   if (!task) return null; // safety guard
@@ -39,21 +38,24 @@ export default function EditPopupModel({ task, onClose, onTaskUpdated }) {
     }
   };
 
-  
-
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-9999">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
         <div className="flex items-center justify-between p-6 border-b border-slate-200">
-         <div className="flex flex-col items-left gap-2">
-           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-slate-800">
-              Edit Task
-            </h2>
-            <span className={`px-2 py-1 rounded-full text-sm font-medium  ${statusColors[task.status]}`}>{task.status}</span>
-          </div>  
-          <p className="text-sm text-slate-500">Edit the task details below.</p>
-         </div>
+          <div className="flex flex-col items-left gap-2">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-bold text-slate-800">Edit Task</h2>
+              <span
+                className={`px-2 py-1 rounded-full text-sm font-medium  ${
+                  statusColors[task.status]
+                }`}>
+                {task.status}
+              </span>
+            </div>
+            <p className="text-sm text-slate-500">
+              Edit the task details below.
+            </p>
+          </div>
           <button
             onClick={onClose}
             className="w-8 h-8 flex items-center justify-center">
