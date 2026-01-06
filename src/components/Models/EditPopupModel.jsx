@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { updateTask } from "../../api";
 
-export default function EditPopupModel({ task, onClose }) {
+export default function EditPopupModel({ task, onClose, onTaskUpdated }) {
 
   if (!task) return null; // safety guard
 
@@ -19,14 +19,15 @@ export default function EditPopupModel({ task, onClose }) {
     if (!title.trim()) return alert("Title is required");
 
     try {
-      await updateTask(task.id, {
+      const updated = await updateTask(task.id, {
         title,
         description,
         status: task.status,
       });
 
+      onTaskUpdated(updated.data ?? updated);
+
       onClose();
-      window.location.reload(); // works for now
     } catch (error) {
       console.error("Failed to update task:", error);
     }
