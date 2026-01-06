@@ -5,6 +5,7 @@ import DeleteTaskButton from "../Buttons/DeleteTaskButton";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { getTask } from "../../api";
 import { useEffect, useState } from "react";
+import { formatDateTime } from "../../utils/formatDate";
 
 const DoneCard = () => {
 
@@ -55,7 +56,7 @@ const DoneCard = () => {
                             <p className="text-slate-600 text-sm line-clamp-3 mb-3">{task.description}</p>
                             <div className="flex items-center gap-2 text-xs text-slate-500">
                                 <i><FaRegCalendarAlt /></i>
-                                <span>{task.createdAt}</span>
+                                <span>{formatDateTime(task.createdAt)}</span>
                             </div>
                         </div>
                         ))

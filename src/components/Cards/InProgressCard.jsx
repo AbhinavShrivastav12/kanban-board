@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import EditTaskButton from "../Buttons/EditTaskButton";
 import DeleteTaskButton from "../Buttons/DeleteTaskButton";
 import { getTask } from "../../api";
+import { formatDateTime } from "../../utils/formatDate";
 
 const InProgressCard = () => {
   const [loading, setLoading] = useState(true);
@@ -62,7 +63,7 @@ const InProgressCard = () => {
                   </h3>
                   <div className="flex items-center gap-1">
                     <EditTaskButton task={task} />
-                    <DeleteTaskButton />
+                    <DeleteTaskButton task={task.id}/>
                   </div>
                 </div>
 
@@ -74,7 +75,7 @@ const InProgressCard = () => {
                   <FaRegCalendarAlt />
                   <span>
                     {task.createdAt
-                      ? new Date(task.createdAt).toLocaleDateString()
+                      ? formatDateTime(task.createdAt)
                       : "No date"}
                   </span>
                 </div>
